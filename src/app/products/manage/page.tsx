@@ -168,7 +168,7 @@ export default function ManageItemsPage() {
                 onClick={() => setPage(i + 1)}
                 className={`px-4 py-2 border rounded ${
                   page === i + 1
-                    ? "bg-blue-600 text-white"
+                    ? "bg-[#47A7CE] text-white"
                     : "bg-white"
                 }`}
               >
