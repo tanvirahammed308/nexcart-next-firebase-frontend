@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 NexCart
 
-## Getting Started
+## 📌 Project Description
 
-First, run the development server:
+NexCart is a modern e-commerce web application built with Next.js and Node.js.
+It allows users to browse products, add new items, and manage products with authentication.
+
+---
+
+## 🚀 Key Features
+
+* 🔐 Firebase Authentication (Login/Register)
+* 🛍️ Add, view, and manage products
+* 🔎 Search & filter products (category + price)
+* 📄 Product details page
+* 📦 Responsive product grid layout
+* 🎯 Protected routes (only logged-in users)
+* 📱 Fully responsive design
+* ⚡ Fast performance with modern UI
+
+---
+
+## 🛠️ Tech Stack
+
+* Frontend: Next.js, React, Tailwind CSS
+* Backend: Node.js, Express.js
+* Database: MongoDB (Mongoose)
+* Auth: Firebase Authentication
+* Deployment: Vercel
+
+---
+
+## ⚙️ Setup & Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/nexcart.git
+cd nexcart
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Setup environment variables
+
+Create a `.env.local` file and add:
+
+```
+NEXT_PUBLIC_BACKEND_URL=your_backend_url
+```
+
+### 4. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🌐 Routes Summary
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Public Routes
 
-## Learn More
+* `/` → Landing Page
+* `/all-products` → Products list
+* `/all-products/[id]` → Product details
+* `/about` → About page
+* `/contact` → Contact page
+* `/login` → Login page
 
-To learn more about Next.js, take a look at the following resources:
+### Protected Routes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* `/product/add` → Add product
+* `/product/manage` → Manage products
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📦 API Endpoints (Backend)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* GET `/products` → Get all products
+* GET `/products/:id` → Get single product
+* POST `/products` → Create product
+* DELETE `/products/:id` → Delete product
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
