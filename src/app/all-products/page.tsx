@@ -21,11 +21,14 @@ export default function ItemsPage() {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
 
-  // Fetch from backend
+  //  Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
+  //  Fetch from backend
   const fetchItems = async () => {
     try {
       const res = await api.get("/products");
-
       setItems(res.data.data || []);
     } catch (error) {
       console.log("Fetch error:", error);
@@ -38,7 +41,7 @@ export default function ItemsPage() {
     fetchItems();
   }, []);
 
-  // FILTER LOGIC
+  //  FILTER LOGIC
   const filteredItems = items.filter((item) => {
     const matchSearch =
       item.title.toLowerCase().includes(search.toLowerCase());
@@ -56,6 +59,20 @@ export default function ItemsPage() {
 
     return matchSearch && matchCategory && matchPrice;
   });
+
+  //  Pagination logic
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredItems.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  //  Reset page when filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, category, price]);
 
   if (loading) {
     return (
@@ -105,10 +122,10 @@ export default function ItemsPage() {
 
         </div>
 
-        {/*  Grid */}
+        {/* 🧾 Grid */}
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
 
-          {filteredItems.map((item) => (
+          {currentItems.map((item) => (
             <div
               key={item._id}
               className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden"
@@ -142,7 +159,7 @@ export default function ItemsPage() {
 
                 <Link
                   href={`/all-products/${item._id}`}
-                  className="block text-center mt-3 bg-[#47a7ce] text-white py-2 rounded hover:bg-[#47a7ce]"
+                  className="block text-center mt-3 bg-[#47a7ce] text-white py-2 rounded hover:bg-[#3690ac]"
                 >
                   View Details
                 </Link>
@@ -153,11 +170,51 @@ export default function ItemsPage() {
 
         </div>
 
-        {/* Empty */}
+        {/*  Empty */}
         {filteredItems.length === 0 && (
           <p className="text-center text-gray-500 mt-10">
             No items found
           </p>
+        )}
+
+        {/*  Pagination */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center mt-10 gap-2 flex-wrap">
+
+            <button
+              onClick={() => setCurrentPage((p) => p - 1)}
+              disabled={currentPage === 1}
+              className="px-4 py-2 rounded-lg bg-[#47A7CE] disabled:opacity-50"
+            >
+              ← Prev
+            </button>
+
+            {[...Array(totalPages)].map((_, i) => {
+              const page = i + 1;
+              return (
+                <button
+                  key={i}
+                  onClick={() => setCurrentPage(page)}
+                  className={`px-4 py-2 rounded-lg font-medium ${
+                    currentPage === page
+                      ? "bg-[#47A7CE] text-white shadow"
+                      : "bg-gray-100 hover:bg-gray-200"
+                  }`}
+                >
+                  {page}
+                </button>
+              );
+            })}
+
+            <button
+              onClick={() => setCurrentPage((p) => p + 1)}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 rounded-lg bg-[#47A7CE]  disabled:opacity-50"
+            >
+              Next →
+            </button>
+
+          </div>
         )}
 
       </div>
