@@ -62,7 +62,7 @@ export default function Products() {
             1024: { slidesPerView: 4 },
           }}
         >
-          {products.map((p) => (
+          {products.slice(0, 5).map((p) => (
             <SwiperSlide key={p._id}>
               <div className="border rounded-xl p-4 hover:shadow-xl transition bg-white">
 
